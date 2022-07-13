@@ -1,0 +1,2 @@
+# .config
+All my configuration
