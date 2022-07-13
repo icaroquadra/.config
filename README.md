@@ -1,13 +1,6 @@
 # .config
 All my configuration
 
-## Fonts
-
-[Nerd Fonts](https://github.com/ryanoasis/nerd-fonts),
-[Source Code Pro](https://github.com/adobe-fonts/source-code-pro),
-[Font Awesome](https://fontawesome.com/), [Powerline](https://github.com/powerline/fonts),
-[Nerd Fonts](https://github.com/ryanoasis/nerd-fonts).
-
 ## Terminal
 [ColorLs](https://github.com/athityakumar/colorls) Cool ls
 
