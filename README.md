@@ -10,6 +10,7 @@ All my configuration
 
 [Zsh](https://www.zsh.org/) Shell  
 [OhMyZsh](https://ohmyz.sh/) Teminal Framework
+
 ### Zsh Plugins
 [PowerLevel10K](https://github.com/romkatv/powerlevel10k) Theme for zsh  
 [zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete) autocomplete  
