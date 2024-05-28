@@ -185,9 +185,9 @@ bindsym $mod+r mode "resize"
 
 default_border pixel 1
 
-bindsym --release $mod+Print exec "scrot -m"
-bindsym --release $mod+Shift+Print exec "scrot -s"
-bindsym --release $mod+Shift+Ctrl+Print exec "scrot -u -d 4"
+bindsym --release $mod+p exec "scrot -m"
+bindsym --release $mod+Shift+p exec "scrot -s"
+bindsym --release $mod+Shift+Ctrl+p exec "scrot -u -d 4"
 bindsym --release $mod+e exec nautilus
 bindsym --release $mod+a exec pavucontrol
 bindsym --release $mod+m exec spotify
