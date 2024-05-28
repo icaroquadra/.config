@@ -23,3 +23,5 @@ All my configuration
 
 [nVIM](https://neovim.io/) hyperextensible Vim-based text editor  
 [LazyVIM](https://www.lazyvim.org/) Neovim setup
+
+![2024-05-28-135409_1606x899_scrot.png](2024-05-28-135409_1606x899_scrot.png)
