@@ -1,0 +1,28 @@
+{
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<space>", "e"],
+            "commands": [
+                {
+                    "command": "workbench.view.explorer"
+                }
+            ]
+        }
+    ],
+    "window.commandCenter": true,
+    "terminal.integrated.fontFamily": "Symbols Nerd Font Mono, JetBrains Mono",
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontWeight": "normal",
+    "terminal.integrated.unicodeVersion": "11",
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.openRepositoryInParentFolders": "always",
+    "eslint.migration.2_x": "off",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.currentLine.pullRequests.enabled": false,
+    "json.schemaDownload.enable": true,
+    "git.confirmSync": false,
+    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.editor.enablePreview": true
+}
