@@ -7,6 +7,14 @@
                     "command": "workbench.view.explorer"
                 }
             ]
+        },
+        {
+            "before": ["<space>", "a"],
+            "commands": [
+                {
+                    "command": "aichat.opensidebar"
+                }
+            ]
         }
     ],
     "window.commandCenter": true,

@@ -22,6 +22,11 @@
         "when": "filesExplorerFocus"
     },
     {
+        "key": "r",
+        "command": "renameFile",
+        "when": "filesExplorerFocus"
+    },
+    {
         "key": "ctrl+h",
         "command": "workbench.action.focusSideBar",
         "when": "sideBarVisible"
