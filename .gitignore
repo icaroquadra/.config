@@ -1,0 +1,12 @@
+# Gerado localmente (caminhos, tema, etc.)
+**/fish_variables
+
+# Backups do fish
+**/_backup_conflicts
+
+# macOS
+.DS_Store
+
+# Editor / cache (não versionar)
+*.swp
+*~

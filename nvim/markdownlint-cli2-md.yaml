@@ -1,0 +1,11 @@
+config:
+  default: true
+
+  # Disable line length only for .md files
+  MD013: false
+
+  # Keep the rest consistent with the default config
+  MD024:
+    siblings_only: true
+
+  MD033: false

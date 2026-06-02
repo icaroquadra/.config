@@ -1,3 +1,5 @@
+# Autostart stays false on purpose: config.fish runs `exec tmux new-session -As default`
+# (with IDE/tty guards). This file only adds aliases and the tmux wrapper.
 # global variables
 set -q fish_tmux_autostart || set -g fish_tmux_autostart false
 set -q fish_tmux_autostarted || set -gx fish_tmux_autostarted false

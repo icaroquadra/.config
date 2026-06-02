@@ -1,27 +1,66 @@
-# .config
+# Dotfiles (Debian + i3)
 
-All my configuration
+Configurações versionadas desta máquina. Estrutura espelha `~/.config` e alguns dotfiles em `$HOME`.
 
-## Window Manager
+## Estrutura
 
-[I3](https://i3wm.org/) Tiling window manager
+| Repositório | Destino |
+|-------------|---------|
+| `fish/` | `~/.config/fish` |
+| `i3/` | `~/.config/i3` |
+| `i3status/` | `~/.config/i3status` |
+| `kitty/` | `~/.config/kitty` |
+| `nvim/` | `~/.config/nvim` (LazyVim) |
+| `rofi/` | `~/.config/rofi` |
+| `lazygit/` | `~/.config/lazygit` |
+| `starship.toml` | `~/.config/starship.toml` |
+| `cursor/` | `~/.config/Cursor/User/` |
+| `bashrc` | `~/.bashrc` |
+| `.tmux.conf` | `~/.tmux.conf` |
+| `fonts/` | `~/.local/share/fonts/` (manual) |
+| `archive/macos/` | legado (zsh, macOS) — não usado no Debian |
 
-## Terminal
+Arquivos **não** versionados (gerados na máquina): `fish_variables`, temas/completions do fisher.
 
-[Zsh](https://www.zsh.org/) Shell  
-[OhMyZsh](https://ohmyz.sh/) Teminal Framework
+## Instalação
 
-### Zsh Plugins
+```bash
+cd ~/www/meu/config   # ou clone: git@github.com:icaroquadra/.config.git
+chmod +x install.sh
+./install.sh
+```
 
-[PowerLevel10K](https://github.com/romkatv/powerlevel10k) Theme for zsh  
-[zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete) autocomplete  
-[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) suggests commands  
-[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) syntax highlighting  
-[you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use) reminder existing aliases  
-[zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode) vi(vim) mode
+Fish — plugins declarados em `fish/fish_plugins`:
 
-## Text Editor
+```bash
+fisher install jorgebucaran/fisher
+fisher update
+```
 
-[nVIM](https://neovim.io/) hyperextensible Vim-based text editor  
-[LazyVIM](https://www.lazyvim.org/) Neovim setup
+Neovim — após linkar `nvim/`:
 
+```bash
+nvim   # LazyVim instala plugins na primeira abertura
+```
+
+## Stack
+
+- **WM:** [i3](https://i3wm.org/) + i3status + rofi
+- **Terminal:** kitty + [fish](https://fishshell.com/) + [starship](https://starship.rs/)
+- **Multiplexador:** tmux (sessão `default` no fish)
+- **Editor terminal:** [Neovim](https://neovim.io/) + [LazyVim](https://www.lazyvim.org/)
+- **IDE:** Cursor (`cursor/settings.json`, `cursor/keybindings.json`)
+
+## Atualizar o repositório a partir do sistema
+
+Depois de mudar configs em `~/.config` ou no home:
+
+```bash
+cp -a ~/.config/fish/config.fish ~/.config/fish/fish_plugins fish/
+cp ~/.config/fish/conf.d/* fish/conf.d/
+cp ~/.config/i3/config i3/
+# … ou copie os diretórios que alterou
+git diff
+```
+
+Não commite `fish_variables` nem backups em `_backup_conflicts`.

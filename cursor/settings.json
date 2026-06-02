@@ -1,0 +1,13 @@
+{
+    "window.commandCenter": true,
+    "workbench.colorTheme": "Default Dark+",
+    "git.openRepositoryInParentFolders": "never",
+    "git.enableSmartCommit": true,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font Mono', 'JetBrainsMono NFM', monospace",
+    "window.autoDetectColorScheme": false,
+    "workbench.navigationControl.enabled": false,
+    "workbench.agentsWindowButton.enabled": false,
+    "window.menuBarVisibility": "compact",
+    "editor.fontSize": 13,
+}

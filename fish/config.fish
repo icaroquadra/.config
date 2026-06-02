@@ -1,21 +1,28 @@
 # Executa apenas em sessões interativas
-if status --is-interactive
+if status is-interactive
+    fish_add_path $HOME/.local/bin
 
-    # Inicia tmux automaticamente se não estiver dentro de uma sessão tmux
-    if not set -q TMUX
-        # tenta anexar a sessão 'default', se não existir cria uma nova
-        # o comando tmux é executado em segundo plano para que o restante do config.fish seja carregado
-        tmux attach -t default 2>/dev/null; or tmux new -s default 2>/dev/null
-        # retorna para continuar carregando Starship, vi mode e cursor
+    # Tmux: sessão persistente "default" (anexa ou cria). Aliases em conf.d/tmux.fish;
+    # fish_tmux_autostart fica false de propósito — o autostart é só aqui.
+    set -l __term_prog (string lower -- "$TERM_PROGRAM")
+    if begin
+            not set -q TMUX
+            and command -v tmux >/dev/null
+            and test -t 0
+            and test -z "$VIM"
+            and test -z "$NVIM"
+            and not contains -- "$__term_prog" vscode zed cursor
+            and test -z "$VSCODE_RESOLVING_ENVIRONMENT"
+            and test -z "$INTELLIJ_ENVIRONMENT_READER"
+            and test "$TERMINAL_EMULATOR" != JetBrains-JediTerm
+        end
+        exec tmux new-session -As default
     end
 
-    # Ativa Starship como prompt
-    eval (starship init fish)
+    starship init fish | source
 
-    # Ativa o vi mode
     fish_vi_key_bindings
 
-    # Configura o cursor como no Vim
     set fish_cursor_default block
     set fish_cursor_insert line
     set fish_cursor_replace_one underscore
@@ -23,8 +30,5 @@ if status --is-interactive
     set fish_cursor_external line
     set fish_cursor_visual block
 
-    # Run obstudio
     alias obs="flatpak run com.obsproject.Studio"
-
 end
-fish_add_path $HOME/.local/bin

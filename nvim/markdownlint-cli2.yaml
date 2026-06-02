@@ -1,0 +1,14 @@
+config:
+  default: true
+
+  # Increase max line length (default 80) and ignore code blocks
+  MD013:
+    line_length: 120
+    code_blocks: false
+
+  # Allow repeated headings in different sections
+  MD024:
+    siblings_only: true
+
+  # Allow inline HTML (useful for some Markdown renderers)
+  MD033: false
