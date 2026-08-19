@@ -23,6 +23,7 @@ link "$ROOT/kitty"          "$CONFIG/kitty"
 link "$ROOT/nvim"           "$CONFIG/nvim"
 link "$ROOT/rofi"           "$CONFIG/rofi"
 link "$ROOT/lazygit"        "$CONFIG/lazygit"
+link "$ROOT/tmux"           "$CONFIG/tmux"
 link "$ROOT/starship.toml"  "$CONFIG/starship.toml"
 
 echo
@@ -36,8 +37,19 @@ fi
 echo
 echo "$HOME"
 link "$ROOT/bashrc"      "$HOME/.bashrc"
-link "$ROOT/.tmux.conf"  "$HOME/.tmux.conf"
+# tmux reads ~/.tmux.conf or ~/.config/tmux/tmux.conf (first wins).
+# Keep both pointing at the same file so either path works.
+link "$ROOT/tmux/tmux.conf" "$HOME/.tmux.conf"
+
+echo
+echo "tmux plugin manager"
+if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+    echo "  cloned tpm -> $HOME/.tmux/plugins/tpm"
+else
+    echo "  $HOME/.tmux/plugins/tpm (já instalado)"
+fi
 
 echo
 echo "Concluído. Shell padrão: fish (plugins: fisher install em ~/.config/fish)."
-echo "Fontes opcionais: copie fonts/*.ttf para ~/.local/share/fonts/ e fc-cache -fv"
+echo "tmux: prefix + I instala plugins. Fontes opcionais: copie fonts/*.ttf para ~/.local/share/fonts/ e fc-cache -fv"

@@ -10,3 +10,6 @@
 # Editor / cache (não versionar)
 *.swp
 *~
+
+# TPM plugins (instalados em ~/.tmux/plugins; ignore se aparecerem aqui)
+tmux/plugins/

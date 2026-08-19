@@ -2,8 +2,10 @@
 if status is-interactive
     fish_add_path $HOME/.local/bin
 
-    # Tmux: sessão persistente "default" (anexa ou cria). Aliases em conf.d/tmux.fish;
-    # fish_tmux_autostart fica false de propósito — o autostart é só aqui.
+    # Tmux: sessão persistente "default" (anexa ou cria). Kitty já lança essa
+    # sessão via shell em kitty/overrides.conf; este bloco cobre outros
+    # terminais. Aliases em conf.d/tmux.fish; fish_tmux_autostart fica false
+    # de propósito — o autostart do plugin não deve competir com o exec abaixo.
     set -l __term_prog (string lower -- "$TERM_PROGRAM")
     if begin
             not set -q TMUX
