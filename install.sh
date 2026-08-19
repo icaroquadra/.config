@@ -28,10 +28,13 @@ link "$ROOT/starship.toml"  "$CONFIG/starship.toml"
 
 echo
 echo "Cursor"
-mkdir -p "$CONFIG/Cursor/User"
+mkdir -p "$CONFIG/Cursor/User" "$HOME/.cursor"
 link "$ROOT/cursor/settings.json"    "$CONFIG/Cursor/User/settings.json"
 if [[ -f "$ROOT/cursor/keybindings.json" ]]; then
     link "$ROOT/cursor/keybindings.json" "$CONFIG/Cursor/User/keybindings.json"
+fi
+if [[ -d "$ROOT/cursor/skills" ]]; then
+    link "$ROOT/cursor/skills" "$HOME/.cursor/skills"
 fi
 
 echo

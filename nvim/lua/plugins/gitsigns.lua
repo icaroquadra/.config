@@ -19,7 +19,7 @@ return {
       },
       -- destaque nas linhas alteradas (estilo VS Code)
       numhl = true,
-      linehl = true,
+      linehl = false,
     },
   },
 }

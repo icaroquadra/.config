@@ -19,7 +19,7 @@ set $mod Mod4
 # - PulseAudio/PipeWire with support for pactl (audio control)
 # - kitty (terminal)
 # - rofi (application launcher)
-# - scrot (screenshot tool)
+# - scrot / flameshot (screenshot tools)
 # - nautilus (file explorer)
 # - pavucontrol (audio control)
 # - spotify (music player)
@@ -150,7 +150,7 @@ assign [class="(?i)chromium"] $ws3
 assign [class="(?i)google-chrome"] $ws3
 assign [class="(?i)discord"] $ws4
 assign [class="(?i)obsidian"] $ws4
-assign [class="(?i)kitty"] $ws1
+assign [class="(?i)kitty"] $ws4
 assign [class="(?i)code"] $ws1
 assign [class="(?i)postman"] $ws2
 assign [class="(?i)studio"] $ws2
@@ -219,10 +219,10 @@ default_border pixel 1
 
 # print the entire contents of the focused window to a file
 bindsym --release $mod+p exec "scrot -m"
-# print the selected area of the focused window to a file
+# print the selected area scrot
 bindsym --release $mod+Shift+p exec "scrot -s"
-# print the focused window to a file after a 4 second delay
-bindsym --release $mod+Shift+Ctrl+p exec "scrot -u -d 4"
+# print the selected area (flameshot GUI picker)
+bindsym --release $mod+Shift+Ctrl+p exec --no-startup-id flameshot gui
 # explore files
 bindsym --release $mod+e exec nautilus
 # audio controls
@@ -250,7 +250,7 @@ exec --no-startup-id kitty
 # exec --no-startup-id chromium
 exec --no-startup-id google-chrome
 exec --no-startup-id discord
-exec --no-startup-id obsidian
+# exec --no-startup-id obsidian
 exec --no-startup-id cursor
 exec --no-startup-id postman
 exec --no-startup-id studio
@@ -263,6 +263,5 @@ exec --no-startup-id studio
 # finds out, if available)
 bar {
         status_command i3status "/home/icaro-sysmap/.config/i3status/config"
-        
 }
 
