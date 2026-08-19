@@ -15,6 +15,21 @@ Configurações versionadas desta máquina. Estrutura espelha `~/.config` e algu
 | `lazygit/` | `~/.config/lazygit` |
 | `starship.toml` | `~/.config/starship.toml` |
 | `cursor/` | `~/.config/Cursor/User/` |
+| `cursor/skills/` | `~/.cursor/skills/` (Agent Skills pessoais) |
+
+### Cursor skills (`cursor/skills/`)
+
+| Skill | Descrição |
+|-------|-----------|
+| `create-rule/` | Criar regras em `.cursor/rules/` |
+| `productivity/caveman/` | Comunicação ultra-comprimida (~75% menos tokens) |
+| `productivity/grill-me/` | Entrevista sobre plano/design até alinhar decisões |
+| `productivity/handoff/` | Compactar conversa em doc de handoff |
+| `productivity/teach/` | Ensinar conceito em sessões com workspace stateful |
+| `productivity/write-a-skill/` | Criar novas skills com estrutura correta |
+
+`productivity/*` vem de [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/productivity) (MIT). Para atualizar: sparse-clone ou `npx skills@latest add mattpocock/skills`.
+
 | `bashrc` | `~/.bashrc` |
 | `.tmux.conf` | `~/.tmux.conf` |
 | `fonts/` | `~/.local/share/fonts/` (manual) |

@@ -7,8 +7,9 @@ order += "ipv6"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "volume master"
-order += "battery all"
 order += "disk /"
+order += "cpu_temperature 0"
+order += "cpu_temperature 1"
 order += "load"
 order += "memory"
 order += "tztime local"
@@ -24,30 +25,41 @@ ethernet _first_ {
 }
 
 volume master {
-        format = "♪: %volume"
-        format_muted = "♪: muted (%volume)"
+        format = "VOL: %volume"
+        format_muted = "VOL: muted"
         device = "default"
 }
 
-battery all {
-        format = "%status %percentage %remaining"
+disk "/" {
+        format = "DISK: %avail"
 }
 
-disk "/" {
-        format = "%avail"
+# AMD k10temp Tctl (PCI path stable; hwmon* survives renumber)
+cpu_temperature 0 {
+        format = "CPU: %degrees°C"
+        format_above_threshold = "CPU: %degrees°C!"
+        max_threshold = 80
+        path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon*/temp1_input"
+}
+
+# NVMe composite
+cpu_temperature 1 {
+        format = "NVMe: %degrees°C"
+        format_above_threshold = "NVMe: %degrees°C!"
+        max_threshold = 70
+        path = "/sys/devices/pci0000:00/0000:00:01.1/0000:01:00.0/nvme/nvme0/hwmon*/temp1_input"
 }
 
 load {
-        format = "%1min"
+        format = "LOAD: %1min"
 }
 
 memory {
-        format = "%used | %available"
+        format = "RAM: %used"
         threshold_degraded = "1G"
-        format_degraded = "MEMORY < %available"
+        format_degraded = "RAM LOW: %available free"
 }
 
 tztime local {
         format = "%Y-%m-%d %H:%M:%S"
 }
-
