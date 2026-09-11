@@ -13,6 +13,7 @@ Configurações versionadas desta máquina. Estrutura espelha `~/.config` e algu
 | `nvim/` | `~/.config/nvim` (LazyVim) |
 | `rofi/` | `~/.config/rofi` |
 | `lazygit/` | `~/.config/lazygit` |
+| `tmux/` | `~/.config/tmux` (`tmux.conf` também em `~/.tmux.conf`) |
 | `starship.toml` | `~/.config/starship.toml` |
 | `redshift/redshift.conf` | `~/.config/redshift.conf` (**copy**, AppArmor) |
 | `appearance/` | `~/.config/appearance` |
@@ -35,7 +36,6 @@ Configurações versionadas desta máquina. Estrutura espelha `~/.config` e algu
 `productivity/*` vem de [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/productivity) (MIT). Para atualizar: sparse-clone ou `npx skills@latest add mattpocock/skills`.
 
 | `bashrc` | `~/.bashrc` |
-| `.tmux.conf` | `~/.tmux.conf` |
 | `fonts/` | `~/.local/share/fonts/` (manual) |
 | `archive/macos/` | legado (zsh, macOS) — não usado no Debian |
 
@@ -75,12 +75,19 @@ Neovim — após linkar `nvim/`:
 nvim   # LazyVim instala plugins na primeira abertura
 ```
 
+Tmux — após linkar `tmux/` (Kitty já abre a sessão `default`):
+
+```bash
+tmux source-file ~/.config/tmux/tmux.conf
+# prefix + I instala plugins (tpm, dracula, vim-tmux-navigator)
+```
+
 ## Stack
 
 - **WM:** [i3](https://i3wm.org/) + i3status + rofi
 - **Eye comfort:** redshift daemon (6500K day / 3500K night, 07:00–18:00) + GTK light/dark (`docs/specs/eye-comfort.md`)
 - **Terminal:** kitty + [fish](https://fishshell.com/) + [starship](https://starship.rs/)
-- **Multiplexador:** tmux (sessão `default` no fish)
+- **Multiplexador:** tmux (sessão `default` no fish / kitty `shell`) — config em `tmux/tmux.conf`
 - **Editor terminal:** [Neovim](https://neovim.io/) + [LazyVim](https://www.lazyvim.org/)
 - **IDE:** Cursor (`cursor/settings.json`, `cursor/keybindings.json`)
 

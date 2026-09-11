@@ -12,6 +12,7 @@ home="$(mktemp -d)"
 export HOME="$home"
 export XDG_CONFIG_HOME="$home/.config"
 export DOTFILES_SKIP_SYSTEMD=1
+export DOTFILES_SKIP_TPM=1
 
 bash "$ROOT/install.sh" >/dev/null
 

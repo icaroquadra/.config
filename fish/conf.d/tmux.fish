@@ -3,13 +3,14 @@
 # global variables
 set -q fish_tmux_autostart || set -g fish_tmux_autostart false
 set -q fish_tmux_autostarted || set -gx fish_tmux_autostarted false
-# set the configuration path
-if test -e "$HOME/.tmux.conf"
+# set the configuration path (XDG first, then ~/.tmux.conf)
+set -l __tmux_xdg (set -q XDG_CONFIG_HOME && echo $XDG_CONFIG_HOME || echo "$HOME/.config")/tmux/tmux.conf
+if test -e "$__tmux_xdg"
+    set -q fish_tmux_config || set -gx fish_tmux_config "$__tmux_xdg"
+else if test -e "$HOME/.tmux.conf"
     set -q fish_tmux_config || set -gx fish_tmux_config "$HOME/.tmux.conf"
-else if test -e "$(set -q XDG_CONFIG_HOME && echo $XDG_CONFIG_HOME || echo "$HOME/.config")/tmux/tmux.conf"
-    set -q fish_tmux_config || set -gx fish_tmux_config (set -q XDG_CONFIG_HOME && echo $XDG_CONFIG_HOME || echo "$HOME/.config")/tmux/tmux.conf
 else
-    set -q fish_tmux_config || set -gx fish_tmux_config "$HOME/.tmux.conf"
+    set -q fish_tmux_config || set -gx fish_tmux_config "$__tmux_xdg"
 end
 
 # aliases
