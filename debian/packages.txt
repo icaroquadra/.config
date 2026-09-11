@@ -1,0 +1,55 @@
+# Packages for bootstrap-debian.sh (Debian 13 / trixie). One name per line.
+
+# WM / i3
+i3
+i3status
+i3lock
+xss-lock
+dex
+network-manager
+network-manager-gnome
+pipewire-pulse
+pulseaudio-utils
+rofi
+scrot
+flameshot
+nautilus
+pavucontrol
+gnome-control-center
+x11-xserver-utils
+x11-xkb-utils
+
+# Terminal / shell
+kitty
+fish
+tmux
+git
+curl
+ca-certificates
+starship
+
+# Appearance / GTK
+redshift
+libglib2.0-bin
+adwaita-icon-theme
+gnome-themes-extra
+xdg-desktop-portal
+xdg-desktop-portal-gtk
+dbus-user-session
+
+# Editors / LazyVim deps
+neovim
+ripgrep
+fd-find
+fzf
+unzip
+build-essential
+
+# Fonts
+fonts-jetbrains-mono
+fonts-noto-color-emoji
+
+# Misc
+lazygit
+python3
+policykit-1

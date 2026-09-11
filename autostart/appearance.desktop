@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Appearance schedule
+Comment=GTK light/dark from clock schedule
+Exec=sh -c '"$HOME/.config/appearance/apply.sh" auto'
+Terminal=false
+StartupNotify=false
+OnlyShowIn=i3;

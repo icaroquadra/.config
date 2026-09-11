@@ -1,0 +1,6 @@
+[Unit]
+Description=Apply GTK day/night appearance
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/appearance/apply.sh auto

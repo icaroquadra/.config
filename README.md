@@ -14,6 +14,10 @@ Configurações versionadas desta máquina. Estrutura espelha `~/.config` e algu
 | `rofi/` | `~/.config/rofi` |
 | `lazygit/` | `~/.config/lazygit` |
 | `starship.toml` | `~/.config/starship.toml` |
+| `redshift/redshift.conf` | `~/.config/redshift.conf` (**copy**, AppArmor) |
+| `appearance/` | `~/.config/appearance` |
+| `autostart/*.desktop` | `~/.config/autostart/` |
+| `systemd/user/appearance.*` | `~/.config/systemd/user/` |
 | `cursor/` | `~/.config/Cursor/User/` |
 | `cursor/skills/` | `~/.cursor/skills/` (Agent Skills pessoais) |
 
@@ -37,13 +41,26 @@ Configurações versionadas desta máquina. Estrutura espelha `~/.config` e algu
 
 Arquivos **não** versionados (gerados na máquina): `fish_variables`, temas/completions do fisher.
 
-## Instalação
+## Instalação (máquina já configurada)
 
 ```bash
-cd ~/www/meu/config   # ou clone: git@github.com:icaroquadra/.config.git
+cd ~/meu/config   # ou clone: git@github.com:icaroquadra/.config.git
 chmod +x install.sh
 ./install.sh
 ```
+
+## Debian novo
+
+```bash
+sudo apt-get install -y git
+git clone git@github.com:icaroquadra/.config.git ~/meu/config
+cd ~/meu/config
+./bootstrap-debian.sh          # apt + install.sh + chsh fish
+# já tem GDM/X:
+./bootstrap-debian.sh --skip-x11
+```
+
+Spec: `docs/specs/debian-bootstrap.md`. Bootstrap **não** instala Chrome, Cursor, Discord, Slack, Spotify, Postman, Android Studio, Obsidian — você instala se quiser.
 
 Fish — plugins declarados em `fish/fish_plugins`:
 
@@ -61,10 +78,13 @@ nvim   # LazyVim instala plugins na primeira abertura
 ## Stack
 
 - **WM:** [i3](https://i3wm.org/) + i3status + rofi
+- **Eye comfort:** redshift daemon (6500K day / 3500K night, 07:00–18:00) + GTK light/dark (`docs/specs/eye-comfort.md`)
 - **Terminal:** kitty + [fish](https://fishshell.com/) + [starship](https://starship.rs/)
 - **Multiplexador:** tmux (sessão `default` no fish)
 - **Editor terminal:** [Neovim](https://neovim.io/) + [LazyVim](https://www.lazyvim.org/)
 - **IDE:** Cursor (`cursor/settings.json`, `cursor/keybindings.json`)
+
+Nova máquina: `./bootstrap-debian.sh` (`docs/specs/debian-bootstrap.md`).
 
 ## Atualizar o repositório a partir do sistema
 
@@ -79,3 +99,21 @@ git diff
 ```
 
 Não commite `fish_variables` nem backups em `_backup_conflicts`.
+
+## Eye comfort + tema claro/escuro
+
+Horário em dois arquivos (manter iguais): `appearance/schedule.conf` e `redshift/redshift.conf` (`dawn-time` / `dusk-time`).
+
+```bash
+sudo apt install redshift
+./install.sh          # links + enable appearance.timer
+# sessão atual:
+redshift &
+~/.config/appearance/apply.sh auto
+# kitty: fechar e abrir uma vez (socket remote control)
+tmux source-file ~/.tmux.conf
+```
+
+Kitty Latte/Mocha, tmux status, fish `set -U`. Starship/nvim/Cursor fora. Restart kitty **uma vez** após este install.
+
+Próximo login: `dex` sobe redshift + apply (já tem `dex --autostart --environment i3` no i3). Timer user aplica `auto` cada hora.

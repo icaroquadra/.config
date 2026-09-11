@@ -1,0 +1,4 @@
+# Bare Debian (no GDM yet). Skip with --skip-x11.
+xorg
+lightdm
+lightdm-gtk-greeter

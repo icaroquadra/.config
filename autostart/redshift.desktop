@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Redshift
+Comment=Color temperature (eye comfort)
+TryExec=redshift
+Exec=redshift
+Icon=redshift
+Terminal=false
+StartupNotify=false
+OnlyShowIn=i3;
