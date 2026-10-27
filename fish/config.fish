@@ -13,7 +13,7 @@ if status is-interactive
             and test -t 0
             and test -z "$VIM"
             and test -z "$NVIM"
-            and not contains -- "$__term_prog" vscode zed cursor claude-desktop
+            and not contains -- "$__term_prog" vscode zed cursor
             and test -z "$VSCODE_RESOLVING_ENVIRONMENT"
             and test -z "$INTELLIJ_ENVIRONMENT_READER"
             and test "$TERMINAL_EMULATOR" != JetBrains-JediTerm
