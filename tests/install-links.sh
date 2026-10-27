@@ -38,6 +38,8 @@ else
   pass "no $cfg/redshift dir symlink"
 fi
 expect_link "$cfg/appearance" "$ROOT/appearance"
+expect_link "$cfg/tmux" "$ROOT/tmux"
+expect_link "$home/.tmux.conf" "$ROOT/tmux/tmux.conf"
 expect_link "$cfg/autostart/redshift.desktop" "$ROOT/autostart/redshift.desktop"
 expect_link "$cfg/autostart/appearance.desktop" "$ROOT/autostart/appearance.desktop"
 expect_link "$cfg/systemd/user/appearance.service" "$ROOT/systemd/user/appearance.service"
@@ -55,6 +57,16 @@ if grep -Fq 'TryExec=redshift' "$ROOT/autostart/redshift.desktop" \
   pass "autostart uses headless redshift"
 else
   fail "autostart must Exec=redshift (default ~/.config/redshift.conf), not gtk/-c"
+fi
+
+# AC8: xrandr then dex in one exec (mode change resets gamma)
+if grep -Fq 'xrandr --output DP-1 --mode 3440x1440 --rate 120.00; exec dex --autostart --environment i3' \
+    "$ROOT/i3/config" \
+  && ! grep -Fq 'xrandr --output DP-3' "$ROOT/i3/config" \
+  && ! grep -Eq '^exec --no-startup-id xrandr --output' "$ROOT/i3/config"; then
+  pass "i3 chains xrandr then dex on DP-1; no standalone xrandr exec"
+else
+  fail "i3 must run xrandr --output DP-1 then dex in one sh -c (no DP-3, no later standalone xrandr)"
 fi
 
 # AC7 units invoke auto

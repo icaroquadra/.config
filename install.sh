@@ -22,9 +22,12 @@ link "$ROOT/i3status"       "$CONFIG/i3status"
 link "$ROOT/kitty"          "$CONFIG/kitty"
 link "$ROOT/nvim"           "$CONFIG/nvim"
 link "$ROOT/rofi"           "$CONFIG/rofi"
+link "$ROOT/dunst"          "$CONFIG/dunst"
 link "$ROOT/lazygit"        "$CONFIG/lazygit"
 link "$ROOT/tmux"           "$CONFIG/tmux"
 link "$ROOT/starship.toml"  "$CONFIG/starship.toml"
+# Arquivo, não pasta: ~/.config/fontconfig pode já existir.
+link "$ROOT/fontconfig/fonts.conf" "$CONFIG/fontconfig/fonts.conf"
 # Debian AppArmor: redshift may only read @{HOME}/.config/redshift.conf (not a symlink target).
 if [[ -L "$CONFIG/redshift" ]]; then
     rm -f "$CONFIG/redshift"
@@ -43,6 +46,9 @@ if [[ ! -f "$HOME/.local/state/appearance/kitty.conf" ]]; then
     cp -f "$ROOT/kitty/themes/night.conf" "$HOME/.local/state/appearance/kitty.conf"
     cp -f "$ROOT/tmux/themes/night.conf" "$HOME/.local/state/appearance/tmux.conf"
     echo "  seeded $HOME/.local/state/appearance/{kitty,tmux}.conf"
+fi
+if [[ ! -f "$ROOT/kitty/current-theme.conf" ]]; then
+    cp -f "$ROOT/kitty/themes/night.conf" "$ROOT/kitty/current-theme.conf"
 fi
 
 echo
@@ -71,6 +77,12 @@ if [[ -z "${DOTFILES_SKIP_TPM:-}" ]]; then
         echo "  cloned tpm -> $HOME/.tmux/plugins/tpm"
     else
         echo "  $HOME/.tmux/plugins/tpm (já instalado)"
+    fi
+    if [[ ! -d "$HOME/.tmux/plugins/catppuccin" ]]; then
+        git clone --depth 1 https://github.com/catppuccin/tmux.git "$HOME/.tmux/plugins/catppuccin"
+        echo "  cloned catppuccin/tmux -> $HOME/.tmux/plugins/catppuccin"
+    else
+        echo "  $HOME/.tmux/plugins/catppuccin (já instalado)"
     fi
 fi
 

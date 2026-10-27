@@ -12,6 +12,7 @@ Configurações versionadas desta máquina. Estrutura espelha `~/.config` e algu
 | `kitty/` | `~/.config/kitty` |
 | `nvim/` | `~/.config/nvim` (LazyVim) |
 | `rofi/` | `~/.config/rofi` |
+| `dunst/` | `~/.config/dunst` (notificações do Slack em amarelo) |
 | `lazygit/` | `~/.config/lazygit` |
 | `tmux/` | `~/.config/tmux` (`tmux.conf` também em `~/.tmux.conf`) |
 | `starship.toml` | `~/.config/starship.toml` |
@@ -85,7 +86,7 @@ tmux source-file ~/.config/tmux/tmux.conf
 ## Stack
 
 - **WM:** [i3](https://i3wm.org/) + i3status + rofi
-- **Eye comfort:** redshift daemon (6500K day / 3500K night, 07:00–18:00) + GTK light/dark (`docs/specs/eye-comfort.md`)
+- **Eye comfort:** redshift daemon (5000K day / 3000K night, 2h ramps 06:00–08:00 and 17:00–19:00) + GTK light/dark (`docs/specs/eye-comfort.md`)
 - **Terminal:** kitty + [fish](https://fishshell.com/) + [starship](https://starship.rs/)
 - **Multiplexador:** tmux (sessão `default` no fish / kitty `shell`) — config em `tmux/tmux.conf`
 - **Editor terminal:** [Neovim](https://neovim.io/) + [LazyVim](https://www.lazyvim.org/)
@@ -109,7 +110,7 @@ Não commite `fish_variables` nem backups em `_backup_conflicts`.
 
 ## Eye comfort + tema claro/escuro
 
-Horário em dois arquivos (manter iguais): `appearance/schedule.conf` e `redshift/redshift.conf` (`dawn-time` / `dusk-time`).
+Horário: redshift usa intervalos (`dawn-time=6:00-8:00`, `dusk-time=17:00-19:00`); GTK flip no meio (`appearance/schedule.conf` 07:00 / 18:00). `location-provider=manual` (lat/lon dummy): sem isso o binário pede GeoClue no login, não recebe fix, e sai antes de aplicar gamma.
 
 ```bash
 sudo apt install redshift
@@ -123,4 +124,4 @@ tmux source-file ~/.tmux.conf
 
 Kitty Latte/Mocha, tmux status, fish `set -U`. Starship/nvim/Cursor fora. Restart kitty **uma vez** após este install.
 
-Próximo login: `dex` sobe redshift + apply (já tem `dex --autostart --environment i3` no i3). Timer user aplica `auto` cada hora.
+Próximo login: i3 roda `xrandr` **depois** `dex` (redshift + apply). Sem isso, `xrandr --mode` zera gamma e a tela fica 6500K. `redshift -p` não prova que o daemon aplicou. Timer user aplica `auto` cada hora. Não use `i3-msg reload` pra testar (re-executa tudo).

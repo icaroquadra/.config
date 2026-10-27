@@ -41,12 +41,20 @@ install_theme_files() {
   local t="$DOTFILES/tmux/themes/${mode}.conf"
   [[ -f "$k" ]] && cp -f "$k" "$STATE/kitty.conf"
   [[ -f "$t" ]] && cp -f "$t" "$STATE/tmux.conf"
+  # Relative include in kitty.conf (no ${HOME} expansion).
+  if [[ -f "$k" ]]; then
+    mkdir -p "$DOTFILES/kitty"
+    cp -f "$k" "$DOTFILES/kitty/current-theme.conf"
+  fi
 }
 
 reload_kitty() {
-  command -v kitty >/dev/null 2>&1 || return 0
   local theme="$STATE/kitty.conf"
   [[ -f "$theme" ]] || return 0
+  if command -v pkill >/dev/null 2>&1; then
+    pkill -USR1 -x kitty 2>/dev/null || true
+  fi
+  command -v kitty >/dev/null 2>&1 || return 0
   local sock
   shopt -s nullglob
   for sock in "$KITTY_SOCK_DIR"/*.sock; do
@@ -59,6 +67,11 @@ reload_tmux() {
   local theme="$STATE/tmux.conf"
   [[ -f "$theme" ]] || return 0
   tmux has-session 2>/dev/null || return 0
+  tmux source-file "$theme" || true
+  local catppuccin="${HOME}/.tmux/plugins/catppuccin/catppuccin.tmux"
+  if [[ -f "$catppuccin" ]]; then
+    tmux run-shell "$catppuccin" || true
+  fi
   tmux source-file "$theme" || true
 }
 

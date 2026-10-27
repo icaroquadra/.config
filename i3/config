@@ -38,7 +38,9 @@ font pango:JetBrains mono 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+# xrandr first: mode change resets RandR gamma. dex (redshift) must start after.
+# DP-1 = ultrawide under modesetting/nouveau. DP-3 is disconnected (NVIDIA names).
+exec --no-startup-id sh -c 'xrandr --output DP-1 --mode 3440x1440 --rate 120.00; exec dex --autostart --environment i3'
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -235,7 +237,7 @@ bindsym --release $mod+d exec discord
 # set resolution and refresh rate for the external monitor
 # exec --no-startup-id xrandr --output DP-0 --mode 3440x1440 --rate 180 --dpi 96
 exec --no-startup-id xrdb -merge ~/.Xresources
-exec --no-startup-id xrandr --output DP-3 --mode 3440x1440 --rate 120.00
+# xrandr lives with dex above (before redshift). Do not exec xrandr again here.
 exec --no-startup-id setxkbmap -layout us -variant alt-intl -option compose:menu
 
 # ───────── Autostart applications ─────────

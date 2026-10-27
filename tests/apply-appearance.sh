@@ -16,7 +16,7 @@ run_with_mock() {
 #!/usr/bin/env bash
 echo "$@" >>"${GSETTINGS_LOG:?}"
 EOF
-  for cmd in kitty tmux fish; do
+  for cmd in kitty tmux fish pkill; do
     cat >"$mockdir/$cmd" <<'EOF'
 #!/usr/bin/env bash
 echo "$(basename "$0") $*" >>"${GSETTINGS_LOG:?}"
@@ -54,7 +54,8 @@ dir="$(run_with_mock bash "$APPLY" day)"
 assert_log_has "$dir/gsettings.log" "set org.gnome.desktop.interface color-scheme prefer-light"
 assert_log_has "$dir/gsettings.log" "set org.gnome.desktop.interface gtk-theme Adwaita"
 assert_file_has "$dir/state/kitty.conf" "background #eff1f5"
-assert_file_has "$dir/state/tmux.conf" "bg=#eff1f5"
+assert_file_has "$dir/state/tmux.conf" '@catppuccin_flavor "latte"'
+assert_file_has "$dir/state/tmux.conf" 'bg=#eff1f5'
 assert_log_has "$dir/gsettings.log" "fish $ROOT/fish/themes/day.fish"
 
 # AC3 night
@@ -62,7 +63,8 @@ dir="$(run_with_mock bash "$APPLY" night)"
 assert_log_has "$dir/gsettings.log" "set org.gnome.desktop.interface color-scheme prefer-dark"
 assert_log_has "$dir/gsettings.log" "set org.gnome.desktop.interface gtk-theme Adwaita-dark"
 assert_file_has "$dir/state/kitty.conf" "background #1e1e2e"
-assert_file_has "$dir/state/tmux.conf" "bg=#1e1e2e"
+assert_file_has "$dir/state/tmux.conf" '@catppuccin_flavor "mocha"'
+assert_file_has "$dir/state/tmux.conf" 'bg=#1e1e2e'
 assert_log_has "$dir/gsettings.log" "fish $ROOT/fish/themes/night.fish"
 
 # AC4 auto boundaries
@@ -93,7 +95,8 @@ fi
 
 # AC6 redshift.conf values (file in repo; no redshift binary needed)
 conf="$ROOT/redshift/redshift.conf"
-for pair in 'temp-day=6500' 'temp-night=3500' 'dawn-time=7:00' 'dusk-time=18:00'; do
+for pair in 'temp-day=5000' 'temp-night=3000' 'dawn-time=6:00-8:00' 'dusk-time=17:00-19:00' \
+  'location-provider=manual' 'lat=0.0' 'lon=0.0'; do
   if grep -Fq "$pair" "$conf"; then
     pass "redshift.conf has $pair"
   else

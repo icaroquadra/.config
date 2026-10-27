@@ -8,3 +8,4 @@ Icon=redshift
 Terminal=false
 StartupNotify=false
 OnlyShowIn=i3;
+Hidden=true

@@ -5,9 +5,12 @@
     "git.enableSmartCommit": true,
     "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
     "editor.fontFamily": "'JetBrainsMono Nerd Font Mono', 'JetBrainsMono NFM', monospace",
-    "window.autoDetectColorScheme": false,
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "Catppuccin Latte",
+    "workbench.preferredDarkColorTheme": "Default Dark+",
     "workbench.navigationControl.enabled": false,
     "workbench.agentsWindowButton.enabled": false,
     "window.menuBarVisibility": "compact",
     "editor.fontSize": 13,
+    "window.confirmSaveUntitledWorkspace": false,
 }
