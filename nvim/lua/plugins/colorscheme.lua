@@ -14,6 +14,7 @@ return {
     priority = 1000,
     opts = {
       flavour = "latte",
+      transparent_background = true,
     },
   },
   {
@@ -22,7 +23,7 @@ return {
     priority = 1000,
     opts = {
       style = "dark",
-      transparent = false,
+      transparent = true,
       italic_comments = true,
       italic_inlayhints = true,
       underline_links = true,
