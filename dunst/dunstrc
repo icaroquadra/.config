@@ -499,3 +499,8 @@
     background = "#f5c211"
     foreground = "#1a1a1a"
     frame_color = "#c49a00"
+
+# Claude desktop não toca som na notificação no Linux
+[claude]
+    appname = "Claude"
+    script = ~/.config/dunst/play-sound.sh
