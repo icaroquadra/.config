@@ -499,6 +499,9 @@
     background = "#f5c211"
     foreground = "#1a1a1a"
     frame_color = "#c49a00"
+    # fica na tela até clicar (mouse_left_click = close_current)
+    timeout = 0
+    override_dbus_timeout = 0
 
 # Claude desktop não toca som na notificação no Linux
 [claude]
