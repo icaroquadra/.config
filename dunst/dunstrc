@@ -493,13 +493,21 @@
 #
 # vim: ft=cfg
 
-# Slack (snap) envia notificações com appname vazio
+# Slack (snap): appname "slack" desde a 4.53 (rev 266); antes vinha vazio
 [slack]
-    appname = ""
+    appname = "slack"
     background = "#f5c211"
     foreground = "#1a1a1a"
     frame_color = "#c49a00"
     # fica na tela até clicar (mouse_left_click = close_current)
+    timeout = 0
+    override_dbus_timeout = 0
+
+[slack-sem-nome]
+    appname = ""
+    background = "#f5c211"
+    foreground = "#1a1a1a"
+    frame_color = "#c49a00"
     timeout = 0
     override_dbus_timeout = 0
 
