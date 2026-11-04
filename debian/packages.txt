@@ -51,5 +51,6 @@ fonts-noto-color-emoji
 
 # Misc
 lazygit
+git-delta
 python3
 policykit-1

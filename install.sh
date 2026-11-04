@@ -8,6 +8,11 @@ CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
 link() {
     local src="$1" dest="$2"
     mkdir -p "$(dirname "$dest")"
+    # Pasta real no destino: ln criaria o link dentro dela. Move para backup.
+    if [[ -d "$dest" && ! -L "$dest" ]]; then
+        mv "$dest" "$dest.bak.$(date +%Y%m%d%H%M%S)"
+        echo "  $dest era pasta, movida para backup"
+    fi
     ln -sfn "$src" "$dest"
     echo "  $dest -> $src"
 }

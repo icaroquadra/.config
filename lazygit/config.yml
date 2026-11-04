@@ -1,0 +1,9 @@
+# Diffs via git-delta. lazygit roda o pager num shell a cada render, então
+# --light/--dark acompanha o tema do SO (appearance/apply.sh) na hora.
+git:
+  paging:
+    colorArg: always
+    pager: >-
+      delta --paging=never
+      $(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null
+      | grep -q prefer-light && echo --light || echo --dark)

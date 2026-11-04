@@ -14,6 +14,10 @@ export XDG_CONFIG_HOME="$home/.config"
 export DOTFILES_SKIP_SYSTEMD=1
 export DOTFILES_SKIP_TPM=1
 
+# Pasta real pré-existente no destino (ex.: lazygit criou ~/.config/lazygit).
+mkdir -p "$XDG_CONFIG_HOME/lazygit"
+touch "$XDG_CONFIG_HOME/lazygit/config.yml"
+
 bash "$ROOT/install.sh" >/dev/null
 
 expect_link() {
@@ -38,6 +42,12 @@ else
   pass "no $cfg/redshift dir symlink"
 fi
 expect_link "$cfg/appearance" "$ROOT/appearance"
+expect_link "$cfg/lazygit" "$ROOT/lazygit"
+if compgen -G "$cfg/lazygit.bak.*" >/dev/null; then
+  pass "pre-existing $cfg/lazygit dir moved to backup"
+else
+  fail "pre-existing $cfg/lazygit dir must be moved to $cfg/lazygit.bak.*"
+fi
 expect_link "$cfg/tmux" "$ROOT/tmux"
 expect_link "$home/.tmux.conf" "$ROOT/tmux/tmux.conf"
 expect_link "$cfg/autostart/redshift.desktop" "$ROOT/autostart/redshift.desktop"
