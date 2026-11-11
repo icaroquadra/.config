@@ -493,9 +493,9 @@
 #
 # vim: ft=cfg
 
-# Slack (snap): appname "slack" desde a 4.53 (rev 266); antes vinha vazio
+# Slack (snap): appname "slack" na rev 266, "Slack" na rev 268; antes vinha vazio
 [slack]
-    appname = "slack"
+    appname = "[Ss]lack"
     background = "#f5c211"
     foreground = "#1a1a1a"
     frame_color = "#c49a00"
