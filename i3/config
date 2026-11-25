@@ -17,16 +17,22 @@ set $mod Mod4
 # - xss-lock, dex (autostart)
 # - NetworkManager + nm-applet (network management)
 # - PulseAudio/PipeWire with support for pactl (audio control)
+# - bluez + blueman (tray icon, GUI on BT block click; falls back to kitty bluetoothctl)
 # - kitty (terminal)
 # - rofi (application launcher)
 # - scrot / flameshot (screenshot tools)
 # - nautilus (file explorer)
 # - pavucontrol (audio control)
+# - spotify (music player)
 # - gnome-control-center
+# - discord, slack (messaging apps)
+# - chromium (web browser)
+# - obsidian (note-taking app)
+# - cursor (editor)
+# - bruno (API testing tool)
+# - studio (Android Studio or equivalent)
 # - xrandr (display setup)
 # - setxkbmap (keyboard layout)
-# Optional (not in bootstrap-debian.sh; install yourself if you want):
-# - spotify, discord, slack, google-chrome, cursor, postman, studio, obsidian
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -38,9 +44,11 @@ font pango:JetBrains mono 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-# xrandr first: mode change resets RandR gamma. dex (redshift) must start after.
-# DP-1 = ultrawide under modesetting/nouveau. DP-3 is disconnected (NVIDIA names).
-exec --no-startup-id sh -c 'xrandr --output DP-1 --mode 3440x1440 --rate 120.00; exec dex --autostart --environment i3'
+# xrandr first: mode change resets RandR gamma. redshift-gtk only after it returns.
+# DP-3 = ultrawide under NVIDIA. DP-1 was the modesetting/nouveau name.
+# Same launch as cursor (bare exec, no pgrep/sleep/-l). Config: ~/.config/redshift.conf
+# & so dex is not blocked for the whole session.
+exec --no-startup-id sh -c 'xrandr --output DP-3 --mode 3440x1440 --rate 120.00; redshift-gtk & exec dex --autostart --environment i3'
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -52,6 +60,14 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+
+# blueman-applet: Bluetooth tray icon (same idea as nm-applet).
+# Right click -> recent connections for a quick connect. Single instance,
+# so the XDG autostart copy started by dex does not duplicate it.
+exec --no-startup-id blueman-applet
+
+# Bluetooth quick-connect menu (rofi): Enter connects/disconnects a paired device.
+bindsym $mod+b exec --no-startup-id python3 /home/icaro-sysmap/.config/i3status/bluetooth_menu.py
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -150,7 +166,8 @@ assign [class="(?i)slack"] $ws4
 assign [class="(?i)obsidian"] $ws4
 assign [class="(?i)kitty"] $ws4
 assign [class="(?i)code"] $ws1
-assign [class="(?i)postman"] $ws2
+assign [class="(?i)com\.anthropic\.claude"] $ws1
+assign [class="(?i)bruno"] $ws2
 assign [class="(?i)studio"] $ws2
 
 # switch to workspace
@@ -244,14 +261,15 @@ exec --no-startup-id setxkbmap -layout us -variant alt-intl -option compose:menu
 
 # workspace placement is handled by assign rules above
 exec --no-startup-id kitty
-# Optional vendor apps — uncomment after you install them:
-# exec --no-startup-id google-chrome
-# exec --no-startup-id discord
-# exec --no-startup-id slack
+# exec --no-startup-id code
+# exec --no-startup-id chromium
+exec --no-startup-id google-chrome
+exec --no-startup-id discord
 # exec --no-startup-id obsidian
-# exec --no-startup-id cursor
-# exec --no-startup-id postman
-# exec --no-startup-id studio
+exec --no-startup-id claude-desktop
+# redshift-gtk: started after xrandr at the top (bare command, same idea as cursor).
+exec --no-startup-id bruno
+exec --no-startup-id studio
 
 ##ec --no-startup-id nm-applet --traybbb
 
@@ -260,6 +278,13 @@ exec --no-startup-id kitty
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status "/home/icaro-sysmap/.config/i3status/config"
+        # wrapper keeps i3status and adds a BT block (bluetoothctl).
+        # left click -> rofi quick-connect menu (also $mod+b);
+        # middle click -> blueman-manager (kitty bluetoothctl if missing);
+        # right click -> power toggle.
+        status_command python3 -u "/home/icaro-sysmap/.config/i3status/status_wrapper.py"
+        # Gtk.StatusIcon (redshift-gtk, nm-applet) needs this. Default is
+        # "primary"; HDMI-1 is primary but disconnected, so the tray never appears.
+        tray_output DP-3
 }
 
